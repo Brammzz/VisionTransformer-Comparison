@@ -1,0 +1,4 @@
+Model,Total Parameters,Trainable Parameters,Non-trainable Parameters,Model Size (MB)
+ViT-Tiny,"5,526,346","5,526,346",0,21.08
+DeiT-Tiny,"5,526,346","5,526,346",0,21.08
+Swin-Tiny,"27,527,044","27,527,044",0,105.01

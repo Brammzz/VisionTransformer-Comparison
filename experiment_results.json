@@ -1,0 +1,56 @@
+{
+    "ViT-Tiny": {
+        "parameters": {
+            "total": 5526346,
+            "trainable": 5526346,
+            "non_trainable": 0,
+            "size_mb": 21.081336975097656
+        },
+        "final_train_loss": 0.07758592467299895,
+        "final_train_acc": 97.2975,
+        "final_val_loss": 0.14171231228067774,
+        "final_val_acc": 95.23,
+        "test_accuracy": 0.9564,
+        "test_precision": 0.9571638523938644,
+        "test_recall": 0.9564,
+        "test_f1": 0.9565754761334077,
+        "inference_time_ms": 69.35743348939079,
+        "throughput_fps": 14.418065226605657
+    },
+    "DeiT-Tiny": {
+        "parameters": {
+            "total": 5526346,
+            "trainable": 5526346,
+            "non_trainable": 0,
+            "size_mb": 21.081336975097656
+        },
+        "final_train_loss": 0.09498824602820678,
+        "final_train_acc": 96.7925,
+        "final_val_loss": 0.16003804211043754,
+        "final_val_acc": 94.63,
+        "test_accuracy": 0.9498,
+        "test_precision": 0.9503512304327826,
+        "test_recall": 0.9498,
+        "test_f1": 0.9499027299811896,
+        "inference_time_ms": 14.471909829548427,
+        "throughput_fps": 69.0993802323327
+    },
+    "Swin-Tiny": {
+        "parameters": {
+            "total": 27527044,
+            "trainable": 27527044,
+            "non_trainable": 0,
+            "size_mb": 105.00733947753906
+        },
+        "final_train_loss": 0.07756348166351891,
+        "final_train_acc": 97.4425,
+        "final_val_loss": 0.11526809324459172,
+        "final_val_acc": 96.38,
+        "test_accuracy": 0.9625,
+        "test_precision": 0.962995167066022,
+        "test_recall": 0.9625,
+        "test_f1": 0.9625066925105037,
+        "inference_time_ms": 81.29010881696429,
+        "throughput_fps": 12.301619650327147
+    }
+}

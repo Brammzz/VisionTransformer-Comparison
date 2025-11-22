@@ -1,0 +1,4 @@
+Model,Avg Time per Image (ms),Std Time (ms),Throughput (images/sec)
+ViT-Tiny,69.36,6.50,14.42
+DeiT-Tiny,14.47,0.86,69.10
+Swin-Tiny,81.29,5.66,12.30

@@ -1,0 +1,43 @@
+======================================================================
+VISION TRANSFORMER COMPARISON - SUMMARY REPORT
+======================================================================
+
+Hardware Configuration:
+  Device: cpu
+
+Dataset Information:
+  Number of classes: 10
+  Training samples: 40000
+  Validation samples: 10000
+  Test samples: 10000
+
+Model Comparison Summary:
+
+ViT-Tiny:
+  Parameters: 5,526,346 (21.08 MB)
+  Test Accuracy: 95.64%
+  Test F1-Score: 95.66%
+  Inference Time: 69.36 ms/image
+  Throughput: 14.42 images/sec
+
+DeiT-Tiny:
+  Parameters: 5,526,346 (21.08 MB)
+  Test Accuracy: 94.98%
+  Test F1-Score: 94.99%
+  Inference Time: 14.47 ms/image
+  Throughput: 69.10 images/sec
+
+Swin-Tiny:
+  Parameters: 27,527,044 (105.01 MB)
+  Test Accuracy: 96.25%
+  Test F1-Score: 96.25%
+  Inference Time: 81.29 ms/image
+  Throughput: 12.30 images/sec
+
+Recommendations:
+
+Best Accuracy: Swin-Tiny (96.25%)
+Fastest Inference: DeiT-Tiny (14.47 ms)
+Smallest Model: ViT-Tiny (5,526,346 params)
+
+======================================================================

@@ -1,0 +1,4 @@
+Model,Accuracy (%),Precision (%),Recall (%),F1-Score (%)
+ViT-Tiny,95.64,95.72,95.64,95.66
+DeiT-Tiny,94.98,95.04,94.98,94.99
+Swin-Tiny,96.25,96.30,96.25,96.25
