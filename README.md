@@ -5,6 +5,7 @@ Proyek ini adalah implementasi perbandingan model Vision Transformer untuk tugas
 ## 📋 Deskripsi
 
 Program ini membandingkan 3 model Vision Transformer:
+
 - **ViT (Vision Transformer Base)** - Transformer murni untuk visi
 - **Swin Transformer Tiny** - Hierarchical transformer dengan shifted window attention
 - **DeiT (Data-efficient Image Transformer Small)** - ViT dengan knowledge distillation
@@ -16,7 +17,7 @@ Program ini membandingkan 3 model Vision Transformer:
 ✅ **Visualisasi Komprehensif** - Learning curves, confusion matrix, comparison plots  
 ✅ **Analisis Parameter** - Jumlah parameter dan ukuran model  
 ✅ **Pengukuran Inference Time** - Waktu inferensi dan throughput  
-✅ **Comparison Tables** - Tabel perbandingan dalam format CSV  
+✅ **Comparison Tables** - Tabel perbandingan dalam format CSV
 
 ## 📦 Requirements
 
@@ -173,6 +174,7 @@ Edit bagian `models` di CONFIG:
 ```
 
 Model lain yang tersedia dari `timm`:
+
 - `'vit_small_patch16_224'` - ViT Small
 - `'vit_large_patch16_224'` - ViT Large
 - `'swin_small_patch4_window7_224'` - Swin Small
@@ -196,12 +198,14 @@ CONFIG = {
 Program ini akan menghasilkan:
 
 ### 1. Parameter Information
+
 - Total parameters
 - Trainable parameters
 - Non-trainable parameters
 - Model size (MB)
 
 ### 2. Performance Metrics
+
 - Accuracy
 - Precision (macro & per-class)
 - Recall (macro & per-class)
@@ -209,11 +213,13 @@ Program ini akan menghasilkan:
 - Confusion Matrix
 
 ### 3. Inference Time
+
 - Average time per image (ms)
 - Standard deviation
 - Throughput (images/sec)
 
 ### 4. Visualizations
+
 - Training/Validation Loss curves
 - Training/Validation Accuracy curves
 - Confusion Matrix heatmap
@@ -221,6 +227,7 @@ Program ini akan menghasilkan:
 - Model comparison charts
 
 ### 5. Comparison Tables
+
 - Parameter comparison (CSV)
 - Performance comparison (CSV)
 - Inference time comparison (CSV)
@@ -232,11 +239,13 @@ Program ini akan menghasilkan:
 Jika terjadi OOM error saat training:
 
 1. **Kurangi batch size**:
+
    ```python
    'batch_size': 16,  # atau 8
    ```
 
 2. **Gunakan model yang lebih kecil**:
+
    ```python
    'models': {
        'ViT-Tiny': 'vit_tiny_patch16_224',
@@ -252,6 +261,7 @@ Jika terjadi OOM error saat training:
 ### Training Terlalu Lama
 
 1. **Kurangi jumlah epoch**:
+
    ```python
    'num_epochs': 10,
    ```
@@ -284,14 +294,17 @@ Gunakan hasil-hasil berikut untuk laporan Anda:
 ## 📚 Referensi
 
 1. **Vision Transformer (ViT)**:
+
    - Dosovitskiy et al. (2021) "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale"
    - https://arxiv.org/abs/2010.11929
 
 2. **Swin Transformer**:
+
    - Liu et al. (2021) "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows"
    - https://arxiv.org/abs/2103.14030
 
 3. **DeiT**:
+
    - Touvron et al. (2021) "Training data-efficient image transformers & distillation through attention"
    - https://arxiv.org/abs/2012.12877
 

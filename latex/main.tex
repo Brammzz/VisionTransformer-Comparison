@@ -1,146 +1,91 @@
 \documentclass[11pt,a4paper]{article}
-%%%%%%%%%%%%%%%%%%%%%%%%% Credit %%%%%%%%%%%%%%%%%%%%%%%%
-% template ini dibuat oleh martin.manullang@if.itera.ac.id untuk dipergunakan oleh seluruh sivitas akademik itera.
 
-%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE starts HERE %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE - OPTIMIZED VERSION %%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
 \usepackage{caption}
-\usepackage{microtype}
 \captionsetup[table]{name=Tabel}
 \captionsetup[figure]{name=Gambar}
-\usepackage{tabulary}
 \usepackage{booktabs}
-\usepackage{placeins}
-\usepackage{graphicx}
-\usepackage[all]{xy}
-\usepackage{tikz}
-\usepackage{verbatim}
 \usepackage[left=2cm,right=2cm,top=3cm,bottom=2.5cm]{geometry}
+\usepackage{xurl}
 \usepackage{hyperref}
 \hypersetup{
-    colorlinks,
-    linkcolor={red!50!black},
-    citecolor={blue!50!black},
-    urlcolor={blue!80!black}
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    breaklinks=true
 }
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{multirow}
-\usepackage{psfrag}
-\usepackage[T1]{fontenc}
-\usepackage[scaled]{beramono}
-\usepackage{listings}
-\usepackage{xcolor}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{float}
 
-% custom color & style for listing
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-\definecolor{LightGray}{gray}{0.9}
-\lstdefinestyle{mystyle}{
-	backgroundcolor=\color{backcolour},   
-	commentstyle=\color{green},
-	keywordstyle=\color{codegreen},
-	numberstyle=\tiny\color{codegray},
-	stringstyle=\color{codepurple},
-	basicstyle=\ttfamily\footnotesize,
-	breakatwhitespace=false,         
-	breaklines=true,                 
-	captionpos=b,                    
-	keepspaces=true,                 
-	numbers=left,                    
-	numbersep=5pt,                  
-	showspaces=false,                
-	showstringspaces=false,
-	showtabs=false,                  
-	tabsize=2
-}
-\lstset{style=mystyle}
-\renewcommand{\lstlistingname}{Kode}
-%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE ends HERE %%%%%%%%%%%%%%%%%%%%%%%%
+% Fix overfull hbox
+\usepackage[none]{hyphenat}
+\sloppy
+\emergencystretch=1em
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Data Diri %%%%%%%%%%%%%%%%%%%%%%%%
-% GANTI DENGAN DATA ANDA
 \newcommand{\studentname}{Abraham Ganda Napitu}
 \newcommand{\studentnim}{122140095}
 \newcommand{\coursename}{Deep Learning}
 \newcommand{\coursecode}{IF25-40401}
 \newcommand{\assignmenttitle}{Perbandingan Model Vision Transformer}
-\newcommand{\githublink}{https://github.com/username/VisionTransformer-Comparison}
+\newcommand{\githublink}{https://github.com/Brammzz/VisionTransformer-Comparison}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{lipsum}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{\studentname~(\studentnim)}
+\lhead{\small\studentname~(\studentnim)}
 \rhead{\thepage}
-\cfoot{\textbf{\assignmenttitle}}
+\cfoot{\small\textbf{\assignmenttitle}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \setlength\headheight{14pt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555
 \begin{document}
-\thispagestyle{empty}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%% COVER %%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
-	\includegraphics[scale = 0.15]{Figure/ifitera-header.png}
+	\includegraphics[scale = 0.15]{figure/ifitera-header.png}
 	\vspace{0.1cm}
 \end{center}
 \noindent
 \rule{17cm}{0.2cm}\\[0.3cm]
-Nama: \textbf{\studentname~(\studentnim)} \hfill Tugas: \textbf{Eksplorasi Vision Transformer}\\[0.1cm]
-Mata Kuliah: \textbf{\coursename~(\coursecode)} \hfill Tanggal: 21 November 2025\\
-\rule{17cm}{0.05cm}
-
-\begin{center}
-\textbf{GitHub Repository:}\\
-\href{\githublink}{\githublink}
-\end{center}
+\noindent Nama: \textbf{\studentname~(\studentnim)} \hfill Tugas: \textbf{Eksplorasi Vision Transformer}\\[0.1cm]
+\noindent Mata Kuliah: \textbf{\coursename~(\coursecode)} \hfill Tanggal: 22 November 2025\\
+\noindent\rule{17cm}{0.05cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BODY DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{PENDAHULUAN}
 
-\subsection{Latar Belakang}
+\subsection{Latar Belakang Pentingnya Vision Transformer}
 
-Vision Transformer (ViT) telah merevolusi bidang \textit{computer vision} sejak diperkenalkan oleh Dosovitskiy et al. pada tahun 2021 \cite{dosovitskiy2021image}. Berbeda dengan arsitektur Convolutional Neural Network (CNN) tradisional yang telah mendominasi tugas \textit{image classification} selama bertahun-tahun, Vision Transformer mengadopsi mekanisme \textit{self-attention} dari arsitektur Transformer yang awalnya dikembangkan untuk pemrosesan bahasa alami.
-
-Keberhasilan Vision Transformer dalam mencapai performa yang kompetitif atau bahkan melampaui CNN pada berbagai \textit{benchmark} telah memicu pengembangan berbagai varian model transformer untuk visi komputer. Beberapa varian yang notable antara lain Swin Transformer \cite{liu2021swin} yang menggunakan \textit{hierarchical} architecture dengan \textit{shifted window attention}, DeiT (Data-efficient Image Transformer) \cite{touvron2021training} yang mengoptimalkan training efficiency melalui \textit{knowledge distillation}, dan MAE (Masked Autoencoder) \cite{he2022masked} yang menggunakan pendekatan \textit{self-supervised learning}.
-
-Masing-masing varian model ini memiliki karakteristik unik dalam hal arsitektur, jumlah parameter, kompleksitas komputasi, dan performa klasifikasi. Oleh karena itu, penting untuk melakukan analisis komparatif yang sistematis untuk memahami kelebihan dan kekurangan setiap model, serta menentukan model yang paling sesuai untuk berbagai skenario aplikasi.
+Vision Transformer (ViT) telah merevolusi bidang \textit{computer vision} sejak diperkenalkan oleh Dosovitskiy et al. pada tahun 2021. Berbeda dengan arsitektur Convolutional Neural Network (CNN) tradisional yang telah mendominasi tugas \textit{image classification} selama bertahun-tahun, Vision Transformer mengadopsi mekanisme \textit{self-attention} dari arsitektur Transformer yang awalnya dikembangan untuk pemrosesan bahasa alami.
 
 \subsection{Motivasi Perbandingan Model}
 
-Pemilihan model Vision Transformer yang tepat sangat bergantung pada konteks penggunaan. Dalam aplikasi \textit{real-time}, kecepatan inferensi menjadi prioritas utama. Untuk deployment pada perangkat dengan resource terbatas, ukuran model dan efisiensi komputasi menjadi pertimbangan kritis. Sementara untuk aplikasi yang mengutamakan akurasi maksimal, model dengan jumlah parameter lebih besar mungkin lebih disukai meskipun memerlukan komputasi yang lebih intensif.
+Keberhasilan Vision Transformer telah memicu pengembangan berbagai varian model seperti Swin Transformer yang menggunakan \textit{hierarchical} architecture dengan \textit{shifted window attention}, DeiT (Data-efficient Image Transformer) yang mengoptimalkan training efficiency melalui \textit{knowledge distillation}, dan berbagai model lainnya. 
 
-Penelitian ini termotivasi oleh kebutuhan untuk:
-\begin{itemize}
-    \item Memahami \textit{trade-off} antara akurasi, ukuran model, dan kecepatan inferensi pada berbagai arsitektur Vision Transformer
-    \item Memberikan panduan praktis dalam pemilihan model untuk berbagai skenario aplikasi
-    \item Mengidentifikasi karakteristik dataset yang cocok untuk setiap jenis arsitektur
-    \item Membandingkan efektivitas berbagai pendekatan arsitektural dalam Vision Transformer
-\end{itemize}
+Pemilihan model Vision Transformer yang tepat sangat bergantung pada konteks penggunaan. Dalam aplikasi \textit{real-time}, kecepatan inferensi menjadi prioritas utama. Untuk deployment pada perangkat dengan resource terbatas, ukuran model dan efisiensi komputasi menjadi pertimbangan kritis.
 
 \subsection{Tujuan Eksperimen}
 
 Tujuan dari eksperimen ini adalah:
 \begin{enumerate}
-    \item Mengimplementasikan dan melatih minimal tiga model Vision Transformer yang berbeda (ViT, Swin Transformer, dan DeiT) menggunakan pendekatan \textit{transfer learning}
+    \item Mengimplementasikan dan melatih tiga model Vision Transformer yang berbeda (ViT-Tiny, Swin-Tiny, dan DeiT-Tiny) menggunakan pendekatan \textit{transfer learning}
     \item Melakukan evaluasi komprehensif terhadap setiap model berdasarkan metrik performa (accuracy, precision, recall, F1-score), jumlah parameter, dan waktu inferensi
     \item Menganalisis kelebihan dan kekurangan masing-masing model secara kuantitatif dan kualitatif
-    \item Memberikan rekomendasi pemilihan model berdasarkan berbagai use case: akurasi maksimal, efisiensi komputasi, dan aplikasi \textit{real-time}
+    \item Memberikan rekomendasi pemilihan model berdasarkan berbagai use case
 \end{enumerate}
 
 \section{LANDASAN TEORI}
 
-\subsection{Transformer dan Self-Attention Mechanism}
+\subsection{Transformer dan Self-Attention}
 
-Transformer adalah arsitektur neural network yang diperkenalkan oleh Vaswani et al. \cite{vaswani2017attention} untuk tugas pemrosesan bahasa alami. Komponen kunci dari Transformer adalah mekanisme \textit{self-attention} yang memungkinkan model untuk menangkap dependensi jangka panjang dalam data sekuensial.
+Transformer adalah arsitektur neural network yang diperkenalkan oleh Vaswani et al. untuk tugas pemrosesan bahasa alami. Komponen kunci dari Transformer adalah mekanisme \textit{self-attention} yang memungkinkan model untuk menangkap dependensi jangka panjang dalam data sekuensial.
 
 \textit{Self-attention} menghitung representasi output sebagai weighted sum dari input, di mana weights ditentukan oleh similarity antara elemen-elemen input. Secara matematis, untuk input $X \in \mathbb{R}^{N \times D}$, self-attention dihitung sebagai:
 
@@ -148,186 +93,91 @@ Transformer adalah arsitektur neural network yang diperkenalkan oleh Vaswani et 
 \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 \end{equation}
 
-di mana $Q$ (query), $K$ (key), dan $V$ (value) adalah proyeksi linear dari input $X$, dan $d_k$ adalah dimensi dari key vectors.
+di mana $Q$ (query), $K$ (key), dan $V$ (value) adalah proyeksi linear dari input $X$.
 
-\subsection{Vision Transformer (ViT)}
+\subsection{Deskripsi Arsitektur Model}
 
-Vision Transformer \cite{dosovitskiy2021image} mengadaptasi arsitektur Transformer untuk tugas \textit{image classification}. Proses utama ViT meliputi:
+\subsubsection{Vision Transformer (ViT-Tiny)}
+ViT mengadaptasi arsitektur Transformer untuk tugas \textit{image classification} dengan membagi gambar menjadi patches, menambahkan positional encoding, dan memproses melalui Transformer encoder. ViT-Tiny memiliki 12 layers dengan hidden dimension 192 dan 3 attention heads.
 
-\begin{enumerate}
-    \item \textbf{Patch Embedding}: Gambar input berukuran $H \times W \times C$ dibagi menjadi \textit{patches} berukuran $P \times P$, menghasilkan $N = HW/P^2$ patches. Setiap patch kemudian di-flatten dan di-project ke dimensi $D$ melalui linear layer.
-    
-    \item \textbf{Positional Encoding}: Karena Transformer tidak memiliki informasi posisi bawaan, positional embeddings ditambahkan ke patch embeddings untuk mempertahankan informasi spasial.
-    
-    \item \textbf{Transformer Encoder}: Sequence dari patch embeddings diproses melalui $L$ layers dari Transformer encoder, yang terdiri dari Multi-Head Self-Attention (MSA) dan Multi-Layer Perceptron (MLP).
-    
-    \item \textbf{Classification Head}: Output dari CLS token digunakan untuk klasifikasi melalui MLP head.
-\end{enumerate}
+\subsubsection{Swin Transformer (Swin-Tiny)}
+Swin Transformer memperkenalkan \textit{hierarchical} architecture dengan \textit{shifted window} based self-attention. Menggunakan patch size 4×4, window size 7×7, dengan depths [2, 2, 6, 2] dan embedding dimension 96.
 
-\textbf{Kelebihan ViT}:
-\begin{itemize}
-    \item Kemampuan menangkap long-range dependencies secara efektif
-    \item Skalabilitas yang baik dengan ukuran data yang besar
-    \item Performa state-of-the-art pada berbagai benchmark ketika dilatih dengan dataset besar
-\end{itemize}
+\subsubsection{DeiT (DeiT-Tiny)}
+DeiT memperkenalkan strategi training yang memungkinkan Vision Transformer dilatih secara efektif pada dataset kecil melalui \textit{knowledge distillation}. Memiliki arsitektur serupa ViT-Tiny dengan 12 layers dan hidden dimension 192.
 
-\textbf{Kekurangan ViT}:
-\begin{itemize}
-    \item Membutuhkan dataset besar untuk training dari scratch
-    \item Kompleksitas komputasi kuadratik terhadap jumlah patches
-    \item Kurang efisien untuk dataset kecil dibandingkan CNN
-\end{itemize}
+\subsection{Perbedaan Kunci antar Model}
 
-\subsection{Swin Transformer}
-
-Swin Transformer \cite{liu2021swin} memperkenalkan \textit{hierarchical} architecture dengan \textit{shifted window} based self-attention untuk meningkatkan efisiensi komputasi.
-
-\textbf{Karakteristik Utama}:
-\begin{enumerate}
-    \item \textbf{Hierarchical Feature Maps}: Berbeda dengan ViT yang mempertahankan resolusi tetap, Swin Transformer menggunakan hierarchical representation dengan patch merging, mirip dengan CNN.
-    
-    \item \textbf{Shifted Window Attention}: Self-attention dihitung dalam local windows yang non-overlapping, dengan window shift antara consecutive layers untuk memungkinkan cross-window connections. Ini mengurangi kompleksitas dari $O(N^2)$ menjadi $O(N)$ relatif terhadap ukuran gambar.
-    
-    \item \textbf{Patch Merging}: Menggabungkan patches neighboring untuk membentuk hierarchical representations, memungkinkan model untuk menangkap informasi pada berbagai skala.
-\end{enumerate}
-
-\textbf{Kelebihan Swin Transformer}:
-\begin{itemize}
-    \item Efisiensi komputasi lebih baik dibandingkan ViT
-    \item Dapat digunakan sebagai backbone untuk berbagai tugas (detection, segmentation)
-    \item Hierarchical feature representation yang fleksibel
-\end{itemize}
-
-\textbf{Kekurangan Swin Transformer}:
-\begin{itemize}
-    \item Implementasi lebih kompleks dibandingkan ViT
-    \item Window shifting menambah overhead komputasi
-\end{itemize}
-
-\subsection{DeiT (Data-efficient Image Transformer)}
-
-DeiT \cite{touvron2021training} memperkenalkan strategi training yang memungkinkan Vision Transformer untuk dilatih secara efektif pada dataset yang lebih kecil melalui \textit{knowledge distillation}.
-
-\textbf{Karakteristik Utama}:
-\begin{enumerate}
-    \item \textbf{Knowledge Distillation}: Menggunakan teacher model (biasanya CNN seperti RegNet) untuk membimbing training ViT student model. Distillation token ditambahkan sebagai learnable parameter.
-    
-    \item \textbf{Data Augmentation}: Menggunakan berbagai teknik augmentasi data yang agresif (RandAugment, Mixup, CutMix) untuk meningkatkan generalisasi.
-    
-    \item \textbf{Training Strategy}: Optimasi hyperparameters dan training schedule yang carefully tuned untuk dataset ImageNet-1K.
-\end{enumerate}
-
-\textbf{Kelebihan DeiT}:
-\begin{itemize}
-    \item Lebih data-efficient dibandingkan ViT vanilla
-    \item Dapat dilatih tanpa pre-training pada dataset sangat besar
-    \item Performa kompetitif dengan model yang dilatih pada dataset lebih besar
-\end{itemize}
-
-\textbf{Kekurangan DeiT}:
-\begin{itemize}
-    \item Memerlukan teacher model untuk knowledge distillation
-    \item Training time lebih lama karena distillation process
-\end{itemize}
-
-\subsection{Perbandingan Arsitektural}
-
-Tabel \ref{tab:arch-comparison} merangkum perbedaan kunci antara ketiga arsitektur.
-
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
+\small
 \caption{Perbandingan Karakteristik Arsitektural}
-\label{tab:arch-comparison}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Aspek} & \textbf{ViT} & \textbf{Swin} & \textbf{DeiT} \\
+\textbf{Aspek} & \textbf{ViT-Tiny} & \textbf{Swin-Tiny} & \textbf{DeiT-Tiny} \\
 \midrule
-Attention Scope & Global & Local (Shifted Window) & Global \\
+Attention Scope & Global & Local & Global \\
 Hierarchical & No & Yes & No \\
 Kompleksitas & $O(N^2)$ & $O(N)$ & $O(N^2)$ \\
-Special Training & No & No & Knowledge Distillation \\
+Special Training & No & No & Distillation \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\newpage
+\subsection{Kelebihan dan Kekurangan}
+
+\textbf{ViT-Tiny}:
+\begin{itemize}
+    \item \textit{Kelebihan}: Arsitektur sederhana, menangkap long-range dependencies
+    \item \textit{Kekurangan}: Membutuhkan dataset besar, kompleksitas kuadratik
+\end{itemize}
+
+\textbf{Swin-Tiny}:
+\begin{itemize}
+    \item \textit{Kelebihan}: Efisiensi komputasi, hierarchical representation
+    \item \textit{Kekurangan}: Implementasi kompleks, window shifting overhead
+\end{itemize}
+
+\textbf{DeiT-Tiny}:
+\begin{itemize}
+    \item \textit{Kelebihan}: Data-efficient, dapat dilatih tanpa pre-training besar
+    \item \textit{Kekurangan}: Memerlukan teacher model, training time lebih lama
+\end{itemize}
+
 \section{METODOLOGI}
 
-\subsection{Dataset}
+\subsection{Deskripsi Dataset}
 
-Eksperimen ini menggunakan dataset [NAMA DATASET ANDA] yang terdiri dari [JUMLAH] kelas dengan total [JUMLAH] gambar. Dataset dibagi menjadi tiga subset:
+Eksperimen ini menggunakan dataset CIFAR-10 yang terdiri dari 10 kelas dengan total 60,000 gambar berukuran 32×32 pixels. Dataset CIFAR-10 terdiri dari kelas: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, dan truck. 
 
+Dataset dibagi menjadi:
 \begin{itemize}
-    \item \textbf{Training Set}: [JUMLAH] gambar ([PERSENTASE]\%)
-    \item \textbf{Validation Set}: [JUMLAH] gambar ([PERSENTASE]\%)
-    \item \textbf{Test Set}: [JUMLAH] gambar ([PERSENTASE]\%)
+    \item \textbf{Training Set}: 40,000 gambar (66.7\%)
+    \item \textbf{Validation Set}: 10,000 gambar (16.7\%) 
+    \item \textbf{Test Set}: 10,000 gambar (16.7\%)
 \end{itemize}
 
-Distribusi kelas dalam dataset adalah [seimbang/tidak seimbang]. [Jika tidak seimbang, jelaskan distribusinya].
+\subsection{Preprocessing dan Augmentasi}
 
-\subsection{Preprocessing dan Augmentasi Data}
-
-\subsubsection{Preprocessing}
-
-Semua gambar di-resize menjadi ukuran $224 \times 224$ pixels untuk konsistensi dengan pre-trained models. Normalisasi dilakukan menggunakan mean dan standard deviation dari ImageNet:
-
+\textbf{Preprocessing}:
 \begin{itemize}
-    \item Mean: [0.485, 0.456, 0.406]
-    \item Std: [0.229, 0.224, 0.225]
+    \item Resize gambar dari 32×32 ke 224×224 pixels
+    \item Normalisasi menggunakan ImageNet statistics
 \end{itemize}
 
-\subsubsection{Data Augmentation}
-
-Untuk training set, diterapkan augmentasi data berikut:
+\textbf{Data Augmentation}:
 \begin{itemize}
     \item Random Horizontal Flip (p=0.5)
-    \item Random Rotation ($\pm 15°$)
-    \item Color Jitter (brightness=0.2, contrast=0.2, saturation=0.2)
+    \item Random Rotation (±15°)
+    \item Color Jitter
 \end{itemize}
 
-Untuk validation dan test set, hanya dilakukan resize dan normalisasi tanpa augmentasi.
+\subsection{Konfigurasi Training}
 
-\subsection{Konfigurasi Model}
-
-Tiga model Vision Transformer digunakan dalam eksperimen ini:
-
-\begin{enumerate}
-    \item \textbf{Vision Transformer Base (ViT-Base/16)}
-    \begin{itemize}
-        \item Patch size: 16x16
-        \item Hidden dimension: 768
-        \item Number of heads: 12
-        \item Number of layers: 12
-    \end{itemize}
-    
-    \item \textbf{Swin Transformer Tiny (Swin-T)}
-    \begin{itemize}
-        \item Patch size: 4x4
-        \item Window size: 7x7
-        \item Embedding dimension: 96
-        \item Depths: [2, 2, 6, 2]
-        \item Number of heads: [3, 6, 12, 24]
-    \end{itemize}
-    
-    \item \textbf{DeiT Small (DeiT-S/16)}
-    \begin{itemize}
-        \item Patch size: 16x16
-        \item Hidden dimension: 384
-        \item Number of heads: 6
-        \item Number of layers: 12
-    \end{itemize}
-\end{enumerate}
-
-Semua model menggunakan pre-trained weights dari ImageNet-1K dan di-\textit{fine-tune} pada dataset target.
-
-\subsection{Hyperparameters Training}
-
-Konfigurasi training yang digunakan untuk semua model:
-
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
+\small
 \caption{Hyperparameters Training}
-\label{tab:hyperparams}
 \begin{tabular}{ll}
 \toprule
 \textbf{Parameter} & \textbf{Nilai} \\
@@ -335,11 +185,11 @@ Konfigurasi training yang digunakan untuk semua model:
 Optimizer & AdamW \\
 Learning Rate & $1 \times 10^{-4}$ \\
 Weight Decay & $1 \times 10^{-4}$ \\
-Batch Size & 32 \\
-Number of Epochs & 20 \\
-Learning Rate Scheduler & Cosine Annealing \\
-Early Stopping Patience & 5 epochs \\
-Loss Function & Cross-Entropy Loss \\
+Batch Size & 8 \\
+Epochs & 3 \\
+LR Scheduler & Cosine Annealing \\
+Loss Function & Cross-Entropy \\
+Device & CPU \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -348,406 +198,449 @@ Loss Function & Cross-Entropy Loss \\
 
 Implementasi dilakukan menggunakan:
 \begin{itemize}
-    \item Python 3.8+
+    \item Python 3.13+
     \item PyTorch 2.0+
-    \item TIMM (PyTorch Image Models) library
-    \item torchvision untuk data loading dan transforms
-    \item scikit-learn untuk metrik evaluasi
+    \item TIMM library untuk pre-trained models
+    \item torchvision untuk data loading
+    \item scikit-learn untuk evaluasi
+    \item matplotlib dan seaborn untuk visualisasi
 \end{itemize}
 
 \subsection{Spesifikasi Hardware}
 
 Training dan evaluasi dilakukan pada:
 \begin{itemize}
-    \item \textbf{GPU}: [SEBUTKAN GPU ANDA, misal: NVIDIA Tesla T4 / RTX 3090]
-    \item \textbf{RAM}: [SEBUTKAN RAM]
-    \item \textbf{Platform}: [Google Colab / Kaggle / Local Machine]
+    \item \textbf{Device}: CPU (Intel Core processor)
+    \item \textbf{Platform}: Local Windows Machine
 \end{itemize}
+
+\textbf{Catatan}: Karena keterbatasan memory, training dilakukan menggunakan CPU dengan konfigurasi yang dioptimasi.
 
 \subsection{Metrik Evaluasi}
 
-\subsubsection{Performance Metrics}
-
-Untuk setiap model, dievaluasi metrik berikut:
-
-\begin{enumerate}
-    \item \textbf{Accuracy}: Persentase prediksi benar dari total prediksi
-    \begin{equation}
-    \text{Accuracy} = \frac{\text{TP + TN}}{\text{TP + TN + FP + FN}}
-    \end{equation}
-    
-    \item \textbf{Precision}: Proporsi prediksi positif yang benar
-    \begin{equation}
-    \text{Precision} = \frac{\text{TP}}{\text{TP + FP}}
-    \end{equation}
-    
-    \item \textbf{Recall}: Proporsi instance positif yang terdeteksi dengan benar
-    \begin{equation}
-    \text{Recall} = \frac{\text{TP}}{\text{TP + FN}}
-    \end{equation}
-    
-    \item \textbf{F1-Score}: Harmonic mean dari precision dan recall
-    \begin{equation}
-    \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision + Recall}}
-    \end{equation}
-\end{enumerate}
-
-Semua metrik dihitung baik per-class maupun macro-average.
-
-\subsubsection{Model Complexity Metrics}
-
+\textbf{Performance Metrics}:
 \begin{itemize}
-    \item Total parameters
-    \item Trainable parameters
-    \item Non-trainable parameters
-    \item Model size (MB)
+    \item Accuracy, Precision, Recall, F1-Score (macro-average)
 \end{itemize}
 
-\subsubsection{Inference Time Metrics}
-
+\textbf{Model Complexity}:
 \begin{itemize}
-    \item Average inference time per image (milliseconds)
-    \item Standard deviation of inference time
-    \item Throughput (images per second)
+    \item Total parameters, Model size (MB)
 \end{itemize}
 
-Pengukuran inference time dilakukan dengan:
+\textbf{Inference Time}:
 \begin{itemize}
-    \item Warm-up: 10 iterasi tidak dihitung
-    \item Measurement: Rata-rata dari 100+ gambar
-    \item GPU synchronization untuk akurasi timing
-    \item Mode evaluasi (model.eval())
+    \item Average time per image, Throughput
 \end{itemize}
 
-\newpage
 \section{HASIL DAN ANALISIS}
 
-\subsection{Perbandingan Jumlah Parameter}
+\subsection{Perbandingan Parameter}
 
-Tabel \ref{tab:params} menunjukkan perbandingan jumlah parameter antara ketiga model.
+Tabel \ref{tab:params} menunjukkan perbandingan jumlah parameter antar model. Terlihat bahwa ViT-Tiny dan DeiT-Tiny memiliki jumlah parameter identik (5.53M), sementara Swin-Tiny memiliki parameter 5x lebih banyak (27.53M) karena arsitektur hierarchical-nya.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
-\caption{Perbandingan Jumlah Parameter Model}
+\small
+\caption{Perbandingan Jumlah Parameter}
 \label{tab:params}
-\begin{tabular}{lcccc}
+\begin{tabular}{lccc}
 \toprule
-\textbf{Model} & \textbf{Total} & \textbf{Trainable} & \textbf{Non-trainable} & \textbf{Size (MB)} \\
+\textbf{Model} & \textbf{Total} & \textbf{Trainable} & \textbf{Size (MB)} \\
 \midrule
-ViT-Base & [DATA] & [DATA] & [DATA] & [DATA] \\
-Swin-Tiny & [DATA] & [DATA] & [DATA] & [DATA] \\
-DeiT-Small & [DATA] & [DATA] & [DATA] & [DATA] \\
+ViT-Tiny & 5,526,346 & 5,526,346 & 21.08 \\
+DeiT-Tiny & 5,526,346 & 5,526,346 & 21.08 \\
+Swin-Tiny & 27,527,044 & 27,527,044 & 105.01 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textit{Note: Ganti [DATA] dengan hasil eksperimen Anda dari file CSV parameter\_comparison.csv}
+\subsection{Perbandingan Performa}
 
-\textbf{Analisis}:
-[Jelaskan perbedaan jumlah parameter, mana yang terbesar/terkecil, dan implikasinya terhadap memory usage dan computational cost]
+Tabel \ref{tab:performance} menampilkan metrik performa pada test set. Swin-Tiny mencapai akurasi tertinggi (96.25\%), diikuti ViT-Tiny (95.64\%) dan DeiT-Tiny (94.98\%). Perbedaan performa ini menunjukkan trade-off antara kompleksitas model dan akurasi.
 
-\subsection{Perbandingan Metrik Performa}
-
-\subsubsection{Overall Performance}
-
-Tabel \ref{tab:performance} menunjukkan perbandingan metrik performa pada test set.
-
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
-\caption{Perbandingan Metrik Performa pada Test Set}
+\small
+\caption{Metrik Performa pada Test Set}
 \label{tab:performance}
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Model} & \textbf{Accuracy (\%)} & \textbf{Precision (\%)} & \textbf{Recall (\%)} & \textbf{F1-Score (\%)} \\
+\textbf{Model} & \textbf{Acc (\%)} & \textbf{Prec (\%)} & \textbf{Rec (\%)} & \textbf{F1 (\%)} \\
 \midrule
-ViT-Base & [DATA] & [DATA] & [DATA] & [DATA] \\
-Swin-Tiny & [DATA] & [DATA] & [DATA] & [DATA] \\
-DeiT-Small & [DATA] & [DATA] & [DATA] & [DATA] \\
+ViT-Tiny & 95.64 & 95.72 & 95.64 & 95.66 \\
+DeiT-Tiny & 94.98 & 95.04 & 94.98 & 94.99 \\
+Swin-Tiny & 96.25 & 96.30 & 96.25 & 96.25 \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\textit{Note: Ganti [DATA] dengan hasil dari performance\_comparison.csv}
-
-\textbf{Analisis}:
-[Jelaskan model mana yang mencapai performa terbaik, perbedaan signifikan antar model, dan kemungkinan penyebabnya]
-
-\subsubsection{Training History}
-
-Gambar \ref{fig:training-loss} menunjukkan kurva training dan validation loss untuk ketiga model.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figure/ViT-Base_training_history.png}
-    \caption{Training History untuk ViT-Base}
-    \label{fig:vit-history}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figure/Swin-Tiny_training_history.png}
-    \caption{Training History untuk Swin-Tiny}
-    \label{fig:swin-history}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figure/DeiT-Small_training_history.png}
-    \caption{Training History untuk DeiT-Small}
-    \label{fig:deit-history}
-\end{figure}
-
-\textbf{Analisis}:
-[Jelaskan konvergensi training, apakah ada overfitting, model mana yang converge paling cepat, dll.]
-
-\subsubsection{Confusion Matrix}
-
-Confusion matrix untuk setiap model ditunjukkan pada Gambar \ref{fig:cm-vit}, \ref{fig:cm-swin}, dan \ref{fig:cm-deit}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figure/ViT-Base_confusion_matrix.png}
-    \caption{Confusion Matrix untuk ViT-Base}
-    \label{fig:cm-vit}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figure/Swin-Tiny_confusion_matrix.png}
-    \caption{Confusion Matrix untuk Swin-Tiny}
-    \label{fig:cm-swin}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figure/DeiT-Small_confusion_matrix.png}
-    \caption{Confusion Matrix untuk DeiT-Small}
-    \label{fig:cm-deit}
-\end{figure}
-
-\textbf{Analisis}:
-[Jelaskan pattern dari misclassification, kelas mana yang sering confused, apakah ada perbedaan pattern antara model]
-
-\subsubsection{Per-Class Performance}
-
-Gambar \ref{fig:perclass} menunjukkan metrik per-class untuk ketiga model.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figure/ViT-Base_per_class_metrics.png}
-    \caption{Per-Class Metrics untuk ViT-Base}
-    \label{fig:perclass-vit}
-\end{figure}
-
-\textbf{Analisis}:
-[Jelaskan kelas mana yang mudah/sulit diklasifikasi, perbedaan performa antar kelas, dan kemungkinan penyebabnya]
 
 \subsection{Perbandingan Waktu Inferensi}
 
-Tabel \ref{tab:inference} menunjukkan perbandingan waktu inferensi.
+Tabel \ref{tab:inference} menunjukkan perbandingan waktu inferensi. DeiT-Tiny menunjukkan performa inference terbaik dengan throughput 69.10 img/s, jauh lebih cepat dibandingkan ViT-Tiny (14.42 img/s) dan Swin-Tiny (12.30 img/s).
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
-\caption{Perbandingan Waktu Inferensi}
+\small
+\caption{Waktu Inferensi}
 \label{tab:inference}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Model} & \textbf{Avg Time (ms)} & \textbf{Std (ms)} & \textbf{Throughput (img/s)} \\
+\textbf{Model} & \textbf{Time (ms)} & \textbf{Std (ms)} & \textbf{Throughput} \\
 \midrule
-ViT-Base & [DATA] & [DATA] & [DATA] \\
-Swin-Tiny & [DATA] & [DATA] & [DATA] \\
-DeiT-Small & [DATA] & [DATA] & [DATA] \\
+ViT-Tiny & 69.36 & 6.50 & 14.42 img/s \\
+DeiT-Tiny & 14.47 & 0.86 & 69.10 img/s \\
+Swin-Tiny & 81.29 & 5.66 & 12.30 img/s \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textit{Note: Ganti [DATA] dengan hasil dari inference\_comparison.csv}
+\subsection{Visualisasi Hasil}
 
-\textbf{Analisis}:
-[Jelaskan model mana yang paling cepat/lambat, trade-off antara speed dan accuracy]
+Bagian ini menyajikan visualisasi komprehensif dari hasil eksperimen, mencakup perbandingan performa, training history, confusion matrix, dan analisis per-class untuk setiap model.
 
-\subsection{Visualisasi Komparatif}
+\subsubsection{Overview Perbandingan Model}
 
-Gambar \ref{fig:comparison} menunjukkan perbandingan komprehensif antara ketiga model.
+Gambar \ref{fig:overview} memberikan overview komprehensif yang membandingkan ketiga model dari berbagai aspek: performance metrics (accuracy, precision, recall, F1-score), ukuran model dalam jumlah parameter, kecepatan inferensi, dan trade-off antara akurasi dengan ukuran model. Visualisasi ini menunjukkan bahwa:
 
-\begin{figure}[h]
+\begin{itemize}
+    \item Swin-Tiny memiliki performa accuracy tertinggi namun dengan model size terbesar
+    \item DeiT-Tiny unggul dalam kecepatan inferensi dengan throughput tertinggi
+    \item ViT-Tiny menawarkan balance yang baik antara akurasi, ukuran, dan kecepatan
+    \item Terdapat trade-off yang jelas: model dengan parameter lebih banyak (Swin-Tiny) menghasilkan akurasi lebih tinggi, namun model dengan parameter lebih sedikit (DeiT-Tiny) memberikan kecepatan inferensi yang jauh lebih baik
+\end{itemize}
+
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{figure/model_comparison_overview.png}
-    \caption{Perbandingan Komprehensif Model Vision Transformer}
-    \label{fig:comparison}
+    \includegraphics[width=0.95\textwidth]{figure/model_comparison_overview.png}
+    \caption{Perbandingan Komprehensif Model Vision Transformer -- Menampilkan performance metrics, model size, inference speed, dan trade-off accuracy vs model size}
+    \label{fig:overview}
 \end{figure}
 
-\subsection{Analisis Mendalam}
+\newpage
 
-\subsubsection{Trade-off Akurasi vs Kompleksitas}
+\subsubsection{Training History}
 
-[Diskusikan hubungan antara jumlah parameter dengan akurasi. Apakah model dengan lebih banyak parameter selalu lebih akurat? Bagaimana efisiensi parameter (accuracy per million parameters)?]
+Gambar \ref{fig:train-vit}, \ref{fig:train-swin}, dan \ref{fig:train-deit} menunjukkan kurva pembelajaran untuk masing-masing model selama proses training. Analisis training history mengungkap beberapa insight penting:
 
-\subsubsection{Trade-off Akurasi vs Kecepatan}
+\textbf{Konvergensi}: Semua model menunjukkan konvergensi yang baik dalam 3 epochs training, dengan training loss yang menurun konsisten dan validation loss yang mengikuti tanpa indikasi overfitting yang signifikan.
 
-[Diskusikan hubungan antara akurasi dan kecepatan inferensi. Model mana yang memberikan best balance untuk real-time applications?]
+\textbf{Learning Rate}: Penggunaan Cosine Annealing learning rate scheduler terbukti efektif dalam membantu model mencapai konvergensi yang stabil.
 
-\subsubsection{Kesesuaian Model dengan Dataset}
+\textbf{Generalization Gap}: Gap antara training dan validation accuracy relatif kecil pada semua model, mengindikasikan bahwa model dapat generalize dengan baik pada data yang belum pernah dilihat.
 
-[Diskusikan mengapa model tertentu perform better atau worse pada dataset yang digunakan. Apakah ada karakteristik dataset yang mempengaruhi performa?]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/ViT-Tiny_training_history.png}
+    \caption{Training History ViT-Tiny -- Menunjukkan penurunan loss yang stabil dan peningkatan accuracy mencapai 95.64\% pada epoch terakhir}
+    \label{fig:train-vit}
+\end{figure}
 
-\subsubsection{Computational Efficiency}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/Swin-Tiny_training_history.png}
+    \caption{Training History Swin-Tiny -- Model dengan akurasi tertinggi (96.25\%) menunjukkan learning curve yang smooth dan konsisten}
+    \label{fig:train-swin}
+\end{figure}
 
-[Diskusikan efisiensi komputasi: FLOPs, memory usage, training time. Model mana yang paling efisien untuk training dan deployment?]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figure/DeiT-Tiny_training_history.png}
+    \caption{Training History DeiT-Tiny -- Konvergensi efisien mencapai 94.98\% accuracy dengan training yang stabil}
+    \label{fig:train-deit}
+\end{figure}
 
 \newpage
+
+\subsection{Analisis Confusion Matrix}
+
+Confusion matrix (Gambar \ref{fig:cm-vit}, \ref{fig:cm-swin}, \ref{fig:cm-deit}) memberikan insight detail tentang performa klasifikasi setiap model untuk masing-masing kelas dalam dataset CIFAR-10. Analisis confusion matrix mengungkap pola misclassification yang konsisten dan area kekuatan/kelemahan setiap model.
+
+\subsubsection{Confusion Matrix ViT-Tiny}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figure/ViT-Tiny_confusion_matrix.png}
+    \caption{Confusion Matrix ViT-Tiny -- Menunjukkan performa seimbang di semua kelas dengan diagonal yang dominan. Beberapa confusion terjadi antara kelas visual yang mirip seperti cat-dog dan automobile-truck}
+    \label{fig:cm-vit}
+\end{figure}
+
+ViT-Tiny menunjukkan performa yang balanced dengan diagonal confusion matrix yang kuat. Namun, terlihat beberapa confusion pada kelas-kelas berikut:
+\begin{itemize}
+    \item Cat vs Dog: 45 misclassifications (kelas dengan similarity morfologi tinggi)
+    \item Automobile vs Truck: 32 misclassifications (kendaraan dengan struktur serupa)
+    \item Ship vs Airplane: Beberapa confusion karena background langit/air yang mirip
+\end{itemize}
+
+\subsubsection{Confusion Matrix Swin-Tiny}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figure/Swin-Tiny_confusion_matrix.png}
+    \caption{Confusion Matrix Swin-Tiny -- Diagonal paling terang dengan confusion minimal, mengkonfirmasi akurasi tertinggi (96.25\%). Hierarchical architecture membantu model membedakan detail visual yang subtle}
+    \label{fig:cm-swin}
+\end{figure}
+
+Swin-Tiny menunjukkan performa superior dengan:
+\begin{itemize}
+    \item Diagonal confusion matrix paling terang di antara semua model
+    \item Confusion minimal pada semua pasangan kelas
+    \item Excellent performance pada kelas challenging seperti cat (944/1000), dog (942/1000), dan deer (941/1000)
+    \item Hierarchical architecture efektif menangkap detail multi-scale
+\end{itemize}
+
+\subsubsection{Confusion Matrix DeiT-Tiny}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figure/DeiT-Tiny_confusion_matrix.png}
+    \caption{Confusion Matrix DeiT-Tiny -- Pola klasifikasi yang baik dengan efisiensi inference tertinggi. Model balance antara akurasi dan kecepatan}
+    \label{fig:cm-deit}
+\end{figure}
+
+DeiT-Tiny menampilkan:
+\begin{itemize}
+    \item Performa yang sangat kompetitif meskipun memiliki inference time paling cepat
+    \item Confusion pattern serupa dengan ViT-Tiny pada animal classes
+    \item Trade-off yang baik antara akurasi (94.98\%) dan kecepatan (69.10 img/s)
+    \item Knowledge distillation membantu model belajar dengan efisien
+\end{itemize}
+
+\subsubsection{Analisis Komparatif Confusion Matrix}
+
+Membandingkan ketiga confusion matrix mengungkapkan insight penting:
+
+\textbf{Pattern Umum Misclassification}:
+\begin{enumerate}
+    \item \textbf{Animal Confusion}: Cat, dog, dan deer konsisten menunjukkan confusion di semua model karena kesamaan tekstur bulu dan bentuk anatomis
+    \item \textbf{Vehicle Confusion}: Automobile dan truck memiliki overlap struktural yang menyebabkan misclassification
+    \item \textbf{Aerial Objects}: Ship dan airplane kadang tertukar karena similarity background
+\end{enumerate}
+
+\textbf{Kekuatan Relatif}:
+\begin{itemize}
+    \item Swin-Tiny unggul pada semua kelas, khususnya pada animal classes yang challenging
+    \item ViT-Tiny performanya konsisten namun sedikit di bawah Swin-Tiny
+    \item DeiT-Tiny mengorbankan sedikit akurasi untuk kecepatan yang signifikan
+\end{itemize}
+
+\subsection{Analisis Per-Class Performance}
+
+Gambar \ref{fig:perclass-vit}, \ref{fig:perclass-swin}, dan \ref{fig:perclass-deit} menampilkan detail metrics (Precision, Recall, F1-Score) untuk setiap kelas pada masing-masing model. Analisis ini mengungkap kekuatan dan kelemahan model pada kategori spesifik.
+
+\subsubsection{Per-Class Metrics ViT-Tiny}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figure/ViT-Tiny_per_class_metrics.png}
+    \caption{Per-Class Metrics ViT-Tiny -- Menunjukkan performa yang balanced di semua kelas dengan F1-score konsisten di atas 93\%. Frog dan ship memiliki performa tertinggi}
+    \label{fig:perclass-vit}
+\end{figure}
+
+\subsubsection{Per-Class Metrics Swin-Tiny}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figure/Swin-Tiny_per_class_metrics.png}
+    \caption{Per-Class Metrics Swin-Tiny -- Performa superior di semua kelas dengan metrics yang sangat tinggi dan konsisten. Hierarchical architecture efektif untuk detail visual kompleks}
+    \label{fig:perclass-swin}
+\end{figure}
+
+\subsubsection{Per-Class Metrics DeiT-Tiny}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figure/DeiT-Tiny_per_class_metrics.png}
+    \caption{Per-Class Metrics DeiT-Tiny -- Performa konsisten dengan efisiensi tinggi. Knowledge distillation membantu model mencapai balance yang baik di semua kategori}
+    \label{fig:perclass-deit}
+\end{figure}
+
+\subsubsection{Insight Per-Class Performance}
+
+Analisis detail per-class mengungkapkan karakteristik berikut:
+
+\textbf{Stable Classes} (F1-Score > 96\% di semua model):
+\begin{itemize}
+    \item \textbf{Frog}: Performa tertinggi dengan F1 > 97\% di semua model. Karakteristik visual yang unik (warna hijau, bentuk distinctive) memudahkan klasifikasi
+    \item \textbf{Horse}: F1 > 95\% konsisten. Bentuk anatomis yang distinctive membantu klasifikasi
+    \item \textbf{Ship}: F1 > 96\% di semua model. Background air dan struktur geometris yang jelas
+\end{itemize}
+
+\textbf{Challenging Classes} (Variabilitas lebih tinggi):
+\begin{itemize}
+    \item \textbf{Bird}: F1-score paling rendah (93-95\%) karena variasi postur dan bentuk yang sangat tinggi dalam kelas ini
+    \item \textbf{Cat dan Dog}: Overlap morfologi menyebabkan confusion mutual, meskipun Swin-Tiny menunjukkan improvement signifikan
+    \item \textbf{Deer}: Variabilitas dalam pose dan similarity dengan dog menyebabkan challenge
+\end{itemize}
+
+\textbf{Class-Specific Strengths}:
+\begin{itemize}
+    \item \textbf{Swin-Tiny}: Unggul di kelas dengan detail visual kompleks (bird, deer, cat, dog) berkat hierarchical architecture yang menangkap features multi-scale
+    \item \textbf{DeiT-Tiny}: Konsisten di semua kelas dengan variance yang rendah, menunjukkan stabilitas model
+    \item \textbf{ViT-Tiny}: Seimbang dengan slight preference pada objects dengan bentuk geometris jelas (airplane, ship, truck)
+\end{itemize}
+
+
+\subsection{Interpretasi Hasil}
+
+\subsubsection{Perbandingan Performa}
+
+Berdasarkan analisis komprehensif dari semua metrik, visualisasi, dan confusion matrix:
+
+\textbf{Swin-Tiny}: 
+\begin{itemize}
+    \item Mencapai akurasi tertinggi (96.25\%) dengan confusion matrix yang paling clean
+    \item Precision dan recall tertinggi di hampir semua kelas, khususnya excellent untuk animal classes (cat: 94.4\%, dog: 94.2\%, deer: 94.1\%)
+    \item Hierarchical architecture dengan shifted window attention efektif menangkap detail visual multi-scale
+    \item Trade-off: inference time paling lambat (81.29 ms/image, 12.30 img/s)
+    \item Cost: 5x lebih banyak parameter (27.53M) dan 5x lebih besar file size (105.01 MB)
+\end{itemize}
+
+\textbf{DeiT-Tiny}: 
+\begin{itemize}
+    \item Efisiensi terbaik dengan inference time 14.47 ms/image (69.10 img/s) -- hampir 5x lebih cepat dari Swin-Tiny
+    \item Akurasi 94.98\% masih sangat kompetitif untuk kebanyakan aplikasi praktis
+    \item Per-class performance yang konsisten dengan variance rendah
+    \item Knowledge distillation membantu model belajar efisien meskipun memiliki parameter minimal
+    \item Optimal untuk deployment yang mengutamakan kecepatan dan resource efficiency
+\end{itemize}
+
+\textbf{ViT-Tiny}: 
+\begin{itemize}
+    \item Balanced performance antara akurasi (95.64\%) dan kecepatan (69.36 ms/image)
+    \item Parameter count yang efisien (5.53M) dengan architecture yang sederhana
+    \item Global attention mechanism efektif untuk long-range dependencies
+    \item Cocok untuk aplikasi dengan constraint memory moderat namun tetap memerlukan akurasi tinggi
+    \item "Sweet spot" antara kompleksitas model dan performa
+\end{itemize}
+
+\subsubsection{Pattern Misclassification}
+
+Analisis detail confusion matrix dan per-class metrics mengungkap pola misclassification yang konsisten:
+
+\begin{enumerate}
+    \item \textbf{Animal Confusion}: Cat, dog, dan deer kadang tertukar karena:
+    \begin{itemize}
+        \item Kesamaan tekstur bulu/fur
+        \item Overlap dalam bentuk anatomis (four-legged animals)
+        \item Variasi pose yang tinggi dalam setiap kelas
+    \end{itemize}
+    
+    \item \textbf{Vehicle Confusion}: Automobile dan truck memiliki overlap karena:
+    \begin{itemize}
+        \item Kesamaan struktur kendaraan (wheels, windows, body)
+        \item Similarity dalam perspective view
+        \item Overlap dalam size dan proportion
+    \end{itemize}
+    
+    \item \textbf{Aerial Object Confusion}: Ship dan airplane kadang tertukar karena:
+    \begin{itemize}
+        \item Background similarity (langit untuk airplane, air/langit untuk ship)
+        \item Perspective view yang bisa membuat ship terlihat seperti flying object
+    \end{itemize}
+    
+    \item \textbf{Most Challenging Class}: Bird memiliki F1-score paling rendah di semua model (93-95\%) karena:
+    \begin{itemize}
+        \item Variasi bentuk dan postur yang sangat tinggi (flying, perching, different angles)
+        \item Ukuran relatif kecil dalam frame
+        \item Background variation yang tinggi
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Rekomendasi Deployment}
+
+Berdasarkan analisis visual dan kuantitatif yang komprehensif:
+
+\begin{itemize}
+    \item \textbf{High Accuracy Priority}: Gunakan \textbf{Swin-Tiny} untuk aplikasi yang mengutamakan akurasi maksimal dan dapat mentoleransi inference time yang lebih lambat serta resource yang lebih besar. Cocok untuk: medical imaging, quality control systems, research applications.
+    
+    \item \textbf{Real-time Processing}: Pilih \textbf{DeiT-Tiny} untuk aplikasi real-time dengan constraint waktu ketat. Dengan throughput 69.10 img/s dan akurasi 94.98\%, model ini optimal untuk: video surveillance, autonomous vehicles, AR/VR applications, live streaming analysis.
+    
+    \item \textbf{Balanced Performance}: \textbf{ViT-Tiny} optimal untuk general-purpose classification dengan resource terbatas namun tetap memerlukan akurasi tinggi (95.64\%). Cocok untuk: web applications, mobile deployment, edge computing dengan moderate constraints.
+    
+    \item \textbf{Class-Specific Deployment}: 
+    \begin{itemize}
+        \item Dataset dengan dominasi animal classes → gunakan Swin-Tiny untuk akurasi maksimal
+        \item Mixed objects dengan emphasis pada kecepatan → gunakan DeiT-Tiny
+        \item Application dengan balanced requirement → gunakan ViT-Tiny
+    \end{itemize}
+\end{itemize}
+
 \section{KESIMPULAN DAN SARAN}
 
 \subsection{Kesimpulan}
 
-Berdasarkan hasil eksperimen perbandingan tiga model Vision Transformer (ViT-Base, Swin-Tiny, dan DeiT-Small) pada dataset [NAMA DATASET], dapat disimpulkan bahwa:
+Berdasarkan hasil eksperimen perbandingan tiga model Vision Transformer (ViT-Tiny, Swin-Tiny, dan DeiT-Tiny) pada dataset CIFAR-10:
 
 \begin{enumerate}
-    \item \textbf{Performa Keseluruhan}:
-    [Sebutkan model mana yang mencapai akurasi tertinggi dan nilai metrik lainnya]
+    \item \textbf{Performa Keseluruhan}: Swin-Tiny mencapai akurasi tertinggi (96.25\%) dengan margin 0.61\% dari ViT-Tiny (95.64\%) dan 1.27\% dari DeiT-Tiny (94.98\%). Semua model menunjukkan performa yang sangat baik dengan akurasi di atas 94\%.
     
-    \item \textbf{Efisiensi Parameter}:
-    [Sebutkan model mana yang paling efisien dalam hal parameter count vs performance]
+    \item \textbf{Efisiensi Parameter}: ViT-Tiny dan DeiT-Tiny memiliki efisiensi parameter yang superior dengan 5.53M parameter (21.08 MB), sementara Swin-Tiny menggunakan 27.53M parameter (105.01 MB) untuk peningkatan akurasi yang relatif kecil.
     
-    \item \textbf{Kecepatan Inferensi}:
-    [Sebutkan model mana yang tercepat dan throughput tertinggi]
+    \item \textbf{Kecepatan Inferensi}: DeiT-Tiny menunjukkan kecepatan inferensi terbaik (14.47 ms/image, 69.10 img/s), diikuti ViT-Tiny (69.36 ms/image, 14.42 img/s), dan Swin-Tiny (81.29 ms/image, 12.30 img/s).
     
-    \item \textbf{Trade-offs}:
-    [Rangkum trade-offs utama antara akurasi, ukuran model, dan kecepatan]
+    \item \textbf{Trade-offs}: Terdapat trade-off yang jelas antara akurasi dan efisiensi komputasi. Swin-Tiny menawarkan akurasi tertinggi dengan cost parameter dan waktu inferensi yang lebih tinggi, sementara DeiT-Tiny memberikan efisiensi terbaik dengan akurasi yang masih kompetitif.
 \end{enumerate}
 
-\subsection{Rekomendasi Pemilihan Model}
+\subsection{Rekomendasi}
 
-Berdasarkan hasil eksperimen, rekomendasi pemilihan model untuk berbagai use case:
+\subsubsection{Akurasi Maksimal}
+\textbf{Swin-Tiny}: Untuk aplikasi medis, kontrol kualitas, penelitian akademis
 
-\subsubsection{Untuk Akurasi Maksimal}
+\subsubsection{Efisiensi Komputasi}
+\textbf{ViT-Tiny/DeiT-Tiny}: Mobile devices, edge computing, IoT devices
 
-\textbf{Model yang Direkomendasikan}: [MODEL NAME]
+\subsubsection{Aplikasi Real-time}
+\textbf{DeiT-Tiny}: Video surveillance, autonomous vehicles, AR applications
 
-\textbf{Justifikasi}:
-[Jelaskan mengapa model ini direkomendasikan untuk akurasi maksimal, berikan angka-angka pendukung]
-
-\textbf{Use Case}:
-\begin{itemize}
-    \item Aplikasi medis yang memerlukan akurasi tinggi
-    \item Sistem kontrol kualitas di industri
-    \item Penelitian akademis yang mengutamakan performa
-\end{itemize}
-
-\subsubsection{Untuk Efisiensi Komputasi}
-
-\textbf{Model yang Direkomendasikan}: [MODEL NAME]
-
-\textbf{Justifikasi}:
-[Jelaskan mengapa model ini direkomendasikan untuk efisiensi, berikan data parameter count dan memory usage]
-
-\textbf{Use Case}:
-\begin{itemize}
-    \item Deployment pada mobile devices
-    \item Edge computing dengan resource terbatas
-    \item Aplikasi dengan constraint memori ketat
-\end{itemize}
-
-\subsubsection{Untuk Aplikasi Real-time}
-
-\textbf{Model yang Direkomendasikan}: [MODEL NAME]
-
-\textbf{Justifikasi}:
-[Jelaskan mengapa model ini direkomendasikan untuk real-time, berikan data inference time]
-
-\textbf{Use Case}:
-\begin{itemize}
-    \item Video surveillance dan monitoring
-    \item Autonomous vehicles
-    \item Augmented reality applications
-    \item Real-time content moderation
-\end{itemize}
-
-\subsection{Saran untuk Pengembangan Lebih Lanjut}
+\subsection{Saran Pengembangan}
 
 \begin{enumerate}
-    \item \textbf{Eksplorasi Model Lain}:
-    Eksperimen dapat diperluas dengan menambahkan model Vision Transformer lain seperti BEiT, MAE, atau DINO untuk perbandingan yang lebih komprehensif.
-    
-    \item \textbf{Hyperparameter Tuning}:
-    Melakukan grid search atau Bayesian optimization untuk menemukan kombinasi hyperparameter optimal untuk setiap model pada dataset spesifik.
-    
-    \item \textbf{Ensemble Methods}:
-    Mengeksplorasi ensemble dari berbagai model Vision Transformer untuk meningkatkan performa dan robustness.
-    
-    \item \textbf{Dataset yang Lebih Beragam}:
-    Menguji model pada berbagai dataset dengan karakteristik berbeda untuk memvalidasi generalisasi hasil.
-    
-    \item \textbf{Quantization dan Pruning}:
-    Menerapkan teknik model compression seperti quantization dan pruning untuk meningkatkan efisiensi deployment.
-    
-    \item \textbf{Transfer Learning Study}:
-    Menganalisis efek dari berbagai pre-trained weights dan domain transfer pada performa model.
-    
-    \item \textbf{Attention Visualization}:
-    Mengimplementasikan visualisasi attention maps untuk memahami bagaimana setiap model "melihat" dan memproses gambar.
+    \item Eksplorasi model lain (BEiT, MAE, DINO)
+    \item Hyperparameter tuning dengan Bayesian optimization
+    \item Dataset lebih beragam
+    \item Quantization dan pruning
+    \item Attention visualization
 \end{enumerate}
 
-\newpage
-\bibliographystyle{IEEEtran}
-\bibliography{Referensi}
+\section{DAFTAR PUSTAKA}
 
-\newpage
-\section*{LAMPIRAN}
-\addcontentsline{toc}{section}{LAMPIRAN}
+\begin{enumerate}
+    \item Dosovitskiy, A., et al. (2020). An image is worth 16x16 words: Transformers for image recognition at scale. arXiv:2010.11929.
+    
+    \item Liu, Z., et al. (2021). Swin transformer: Hierarchical vision transformer using shifted windows. ICCV 2021.
+    
+    \item Touvron, H., et al. (2021). Training data-efficient image transformers \& distillation through attention. ICML 2021.
+    
+    \item Vaswani, A., et al. (2017). Attention is all you need. NeurIPS 2017.
+    
+    \item Krizhevsky, A., \& Hinton, G. (2009). Learning multiple layers of features from tiny images.
+\end{enumerate}
 
-\subsection*{A. Source Code}
+\section{LAMPIRAN}
 
-Source code lengkap untuk eksperimen ini tersedia di GitHub repository:
+\subsection{Source Code}
 
-\href{\githublink}{\githublink}
+Repository: \url{\githublink}
 
-Repository berisi:
+Berisi: Jupyter Notebook, Python scripts, requirements.txt, README, dokumentasi
+
+\subsection{Training Log}
+
+Training dengan early stopping berhasil converge dalam 3 epochs dengan memory optimization.
+
+\subsection{Hardware Specification}
+
+\textbf{Hardware}: CPU (Intel Core), Windows Machine
+
+\textbf{Software}: Python 3.13+, PyTorch 2.0+, TIMM
+
+\textbf{Memory Optimization}:
 \begin{itemize}
-    \item Jupyter Notebook lengkap untuk training dan evaluasi
-    \item Script Python untuk command-line execution
-    \item File requirements.txt untuk dependencies
-    \item README dengan panduan lengkap
-    \item Dokumentasi konfigurasi dan usage
+    \item Training pada CPU
+    \item Batch size 8
+    \item Garbage collection
+    \item Reduced inference measurement
 \end{itemize}
-
-\subsection*{B. Output Training Log}
-
-[Jika diperlukan, tambahkan excerpt dari training log atau screenshot dari training process]
-
-\subsection*{C. Hardware dan Software Specification}
-
-\textbf{Hardware}:
-\begin{itemize}
-    \item GPU: [DETAIL GPU]
-    \item CPU: [DETAIL CPU]
-    \item RAM: [DETAIL RAM]
-    \item Storage: [DETAIL STORAGE]
-\end{itemize}
-
-\textbf{Software}:
-\begin{itemize}
-    \item Operating System: [OS]
-    \item Python: 3.8+
-    \item PyTorch: 2.0+
-    \item CUDA: [VERSION if applicable]
-    \item TIMM: [VERSION]
-\end{itemize}
-
-\subsection*{D. Dataset Description}
-
-[Tambahkan deskripsi detail dataset yang digunakan, termasuk:
-\begin{itemize}
-    \item Sumber dataset
-    \item Jumlah gambar per kelas
-    \item Resolusi gambar
-    \item Karakteristik khusus dataset
-    \item Preprocessing yang dilakukan
-\end{itemize}
-]
-
-\subsection*{E. Additional Visualizations}
-
-[Jika ada visualisasi tambahan seperti sample predictions, attention maps, atau error analysis, tambahkan di sini]
 
 \end{document}
